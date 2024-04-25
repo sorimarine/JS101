@@ -10,3 +10,6 @@
     - `NaN`
 
 - **Short-Circuiting**
+---
+## Walk-through: Calculator
+- `readline-sync`
