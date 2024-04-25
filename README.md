@@ -1,0 +1,1 @@
+This repository is for Launch School's course JS101: Programming Foundations with JavaScript: Basics.
