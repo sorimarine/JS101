@@ -263,3 +263,8 @@
       return result;
     }
     ```
+
+### 15. Precedence
+
+- an operator that has higher precedence than another is said to bind more tightly to its operands.
+- it's best practice to use parentheses to make it easier to read
