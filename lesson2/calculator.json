@@ -1,0 +1,44 @@
+{
+  "prompts": {
+    "languagePrompt": "Language/Lengua/언어:\n 1) English  2) Español  3) 한국어",
+    "languageInvalid": "Ivalid!/¡Inválido!/유효하지 않은! (1, 2, 3)",
+    "1": {
+      "welcome": "Welcome to calculator!",
+      "firstNum": "What's the first number?",
+      "secondNum": "What's the second number?",
+      "operation": "What operation would you like to perform?\n(+) Add  (-) Subtract  (*) Multiply  (/) Divide",
+      "again": "Perform another calculation?\n1) Yes  2) No",
+      "bye": "Thank you for using calculator. Have a good day!",
+      "operationInvalid": "Must choose '+', '-', '*', '/'.",
+      "numberInvalid": "Hmm... that doesn't look like a valid number.",
+      "againInvalid": "Must choose 1 or 2"
+    },
+    "2": {
+      "welcome": "Bienvenido a la calculadora!",
+      "firstNum": "¿Cuál es el primer número?",
+      "secondNum": "¿Cuál es el segundo número?",
+      "operation": "¿Qué operación te gustaría realizar?\n(+) Agregar  (-) Sustraer  (*) Multiplicar  (/) Dividir",
+      "again": "¿Realizar otro cálculo?\n1) Sí  2) No",
+      "bye": "Gracias por usar la calculadora. ¡Que tenga un buen día!",
+      "operationInvalid": "Debes elegir '+', '-', '*', '/'.",
+      "numberInvalid": "Hmm... ese no parece un número válido.",
+      "againInvalid": "Debes elegir 1 o 2"
+    },
+    "3": {
+      "welcome": "계산기에 오신 것을 환영합니다!",
+      "firstNum": "첫 번째 숫자는 무엇입니까?",
+      "secondNum": "두 번째 숫자는 무엇입니까?",
+      "operation": "어떤 작업을 수행하시겠습니까?\n(+) 추가하다  (-) 덜다  (*) 곱하다  (/) 나누다",
+      "again": "다른 계산을 수행하시겠습니까?\n1) 예  2) 아니요",
+      "bye": "계산기를 이용해 주셔서 감사합니다. 좋은 하루 보내세요!",
+      "operationInvalid": "'+', '-', '*', '/' 중 하나를 선택해야 합니다.",
+      "numberInvalid": "흠... 유효한 숫자가 아닌 것 같습니다.",
+      "againInvalid": "1 또는 2를 선택해야 합니다."
+    }
+  },
+  "options": {
+    "languages": ["1", "2", "3"],
+    "operations": ["+", "-", "*", "/"],
+    "again": ["1", "2"]
+  }
+}

@@ -1,6 +1,18 @@
 const readline = require("readline-sync");
+const CALCULATOR_CONF = require("./calculator.json");
+const PROMPTS = CALCULATOR_CONF.prompts;
+const OPTIONS = CALCULATOR_CONF.options;
 
-function prompt(message) {
+let lang = "";
+let langChosen = false;
+
+function prompt(key) {
+  let message = "";
+  if (langChosen) {
+    message = PROMPTS[lang][key];
+  } else {
+    message = PROMPTS[key];
+  }
   console.log(`=> ${message}`);
 }
 
@@ -8,61 +20,76 @@ function invalidNumber(number) {
   return number.trimStart() === "" || Number.isNaN(Number(number));
 }
 
-prompt("Welcome to Calculator!");
+prompt("languagePrompt");
+lang = readline.question().trim();
+while (!OPTIONS.languages.includes(lang)) {
+  console.clear();
+  prompt("languageInvalid");
+  prompt("languagePrompt");
+  lang = readline.question().trim();
+}
+langChosen = true;
 
-let again = "y";
-while (again === "y" || again === "Y") {
-  prompt("What's the first number?");
+let again = "1";
+while (again.trim() === "1") {
+  prompt("firstNum");
   let number1 = readline.question();
 
   while (invalidNumber(number1)) {
-    prompt("Hmm... that doesn't look like a valid number.");
+    console.clear();
+    prompt("numberInvalid");
+    prompt("firstNum");
     number1 = readline.question();
   }
 
-  prompt("What's the second number?");
+  prompt("secondNum");
   let number2 = readline.question();
 
   while (invalidNumber(number2)) {
-    prompt("Hmm... that doesn't look like a valid number.");
+    console.clear();
+    prompt("numberInvalid");
+    prompt("secondNum");
     number2 = readline.question();
   }
 
-  prompt(
-    "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide"
-  );
-  let operation = readline.question();
+  prompt("operation");
+  let operation = readline.question().trim();
 
-  while (!["1", "2", "3", "4"].includes(operation)) {
-    prompt("Must choose 1, 2, 3 or 4");
+  while (!OPTIONS.operations.includes(operation)) {
+    console.clear();
+    prompt("operationInvalid");
+    prompt("operation");
     operation = readline.question();
   }
 
   let output;
+  number1 = Number(number1);
+  number2 = Number(number2);
   switch (operation) {
-    case "1":
-      output = Number(number1) + Number(number2);
+    case "+":
+      output = number1 + number2;
       break;
-    case "2":
-      output = Number(number1) - Number(number2);
+    case "-":
+      output = number1 - number2;
       break;
-    case "3":
-      output = Number(number1) * Number(number2);
+    case "*":
+      output = number1 * number2;
       break;
-    case "4":
-      output = Number(number1) / Number(number2);
+    case "/":
+      output = number1 / number2;
       break;
   }
 
-  prompt(`The result is: ${output}`);
+  console.log(`${number1} ${operation} ${number2} = ${output}`);
 
-  prompt("Perform another calculation? (y/n)");
+  prompt("again");
   again = readline.question();
   // Just to make sure the user input is intentional
-  while (!["y", "Y", "n", "N"].includes(again)) {
-    prompt("Must choose 'y' or 'n'");
+  while (!OPTIONS.again.includes(again)) {
+    console.clear();
+    prompt("againInvalid");
+    prompt("again");
     again = readline.question();
   }
-
-  prompt("Thank you for using the calculator. Have a good day!");
 }
+prompt("bye");
