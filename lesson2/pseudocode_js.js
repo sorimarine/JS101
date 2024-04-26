@@ -37,13 +37,14 @@ function findThirdMatch(string, charToMatch) {
 
 function merge(array1, array2) {
   let result = [];
-  for (let i = 0; i < array1.length; i += 1) {
-    result.push(array1[i]);
-    result.push(array2[i]);
+  for (let index = 0; index < array1.length; index += 1) {
+    result.push(array1[index]);
+    result.push(array2[index]);
   }
   return result;
 }
 
+console.log(getSum(1, 2));
 console.log(mergeStrings(["blue", "moon", "sways", "gently"]));
 console.log(everyOther([1, 4, 7, 2, 5]));
 console.log(findThirdMatch("axbxcdxex", "x"));
