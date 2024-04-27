@@ -318,3 +318,65 @@
   - `String(null) // "null"`
   - `String(undefined) // "undefined"`
   - unlike `toString` method, `String` function can be used on `null` and `undefined`
+
+**_Template Literals_**
+
+- inside template literals, JavaScript implicitly coerces interpolation expressions like `${something}` to string values. No explicit coercion needed.
+
+### 18. Implicit Type Coercion
+
+- Generally try to avoid
+
+**_Implicit Coercion with the `==` Operator_**
+
+- avoid using it bro
+- always better to be more explicit and clear
+- When a number is compared with a string using `==`, the string is coerced into a number
+- When boolean is compared with any other value, it's coerced into a number and compared again using the `==` operator.
+- When an object is compared with a primitive value, it's coerced into a primitive value and compared again using the `==` operator.
+- `undefined == null` evaluates to true
+- Shouldn't be comparing things of different types anyway. might need to redesign your code.
+
+**_Implicit Coercion with the `+` Operator_**
+
+- When one of the operand is a string, the other operand gets coerced into a string and concatenated
+- When both operands are a combination of numbers, booleans, `null`, or `undefined`, they get converted to numbers and added together
+
+```js
+null + true; // 1
+null + false; // 0
+true + 1; // 2
+1 + undefined; // NaN
+```
+
+- When one operand is an object, both operands get converted to strings and concatenated
+
+```js
+[1] +
+  (2)[1] + // "12"
+  "2"[(1, 2)] + // "12"
+  3; // "1,23"
+[] + 5; // "5"
+[] + true; // "true"
+42 + {}; // "42[object object]"
+```
+
+**_Relational Operators_**
+`<`, `>`, `<=`, `=>`
+
+- when both operands are strings, they're compared lexicographically
+- otherwise, Javascript converts them into numbers before comparing them
+
+```js
+11 > "9"; // true.
+123 > "a"; // 'a' is coerced into NaN; comparison to NaN always false.
+true > null; // true. 1 > 0
+true > false; // true. 1 > 0
+null <= false; // true. 0 <= 0
+undefined >= 1; // false. NaN >= 1
+```
+
+**_Best Practices_**
+
+- **always use explicit type coercions**
+- **always use strict equality and inequality operators (`===` and `!==`**)
