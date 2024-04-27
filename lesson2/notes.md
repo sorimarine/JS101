@@ -268,3 +268,53 @@
 
 - an operator that has higher precedence than another is said to bind more tightly to its operands.
 - it's best practice to use parentheses to make it easier to read
+
+### 17. Explicit Type Coercion
+
+**_parseInt_**
+
+- converts to int by dropping decimal parts
+- "12oz" => 12
+- "+12oz" => 12
+- takes in radix as optional second argument. default is base-10
+
+**_parseFloat_**
+
+- converts string into number until it encounters a character that can't be converted
+- "12 grams" => 12
+- "12.2 grams" => 12.2
+
+**_Coercing Numbers using the + operator_**
+
+- the unary `+` operator works like the `Number` function.
+
+```
++"" => 0
++"1" => 1
++"2.3" => 2.3
++[] => 0
++"abc" = NaN
+```
+
+**_Coercing values to strings_**
+
+- `toString` method
+  - works on all data types except `null` and `undefined`.
+  - returns a string representation of the value
+  ```js
+  let number = 42;
+  number.toString(); // "42"
+  ```
+  - `42.toString() // error`
+  - `(42).toString() // "42"`
+  - `42..toString() // "42"`
+  - `[1, 2, 3].toString() // "1,2,3"`
+  - `[1, null, 2, undefined, 3] // "1,,2,,3"`
+  - by default, an object's toString method returns `[object object]`
+- `String` function can be used to perform the same function as the `toString` method
+  - `String(42) // "42"`
+  - `String([1, 2, 3]) // "1,2,3"`
+  - `String({a: "foo", b: "bar"}) // [object, object]`
+  - `String(null) // "null"`
+  - `String(undefined) // "undefined"`
+  - unlike `toString` method, `String` function can be used on `null` and `undefined`
