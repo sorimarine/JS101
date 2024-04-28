@@ -55,6 +55,7 @@ function refreshInfoDisplay(loanInfo) {
   printMonthlyPaymentLine(loanInfo.monthlyPayment);
   console.log("====================================================\n");
 }
+
 /** ------------------------------------------------------------------------- */
 
 /** --------------------------- HELPER FUNCTIONS -----------------------------*/
@@ -68,9 +69,11 @@ function lessThanTwoDecimals(amountStr) {
   // if no decimal or if decimal portion less than 2
   return beforeAndAfter.length === 1 || beforeAndAfter[1].length <= 2;
 }
+
 /** ------------------------------------------------------------------------- */
 
 /** ------------------------ USER INPUT FUNCTIONS ----------------------------*/
+
 function setLoanAmount(loanInfo) {
   prompt(PROMPTS.loan);
   let loan = readline.question();
@@ -130,6 +133,7 @@ function doAgain() {
   }
   return again.toLocaleLowerCase() === "y";
 }
+
 /** ------------------------------------------------------------------------- */
 
 /** ----------------------------- MAIN LOGIC ---------------------------------*/
@@ -173,3 +177,5 @@ while (true) {
 }
 console.clear();
 prompt(PROMPTS.bye);
+
+/** ------------------------------------------------------------------------- */
