@@ -1,0 +1,18 @@
+{
+  "prompts": {
+    "welcome": "Welcome to the Mortgage Calculator! Press enter to continue",
+    "loan": "Please enter loan amount in $ (example: 200.23)",
+    "loanInvalid": "Loan must be a valid dollar amount greater than 0! And only 2 decimal places!",
+    "apr": "Please enter the annual percentage rate (APR) (ex: 15)",
+    "aprInvalid": "APR must be a NUMBER greater than 0! No more than 2 decimal places please!",
+    "loanDuration": "Please enter the loan duration (in months) (ex: 23)",
+    "loadDurationInvalid": "Duration of loan must be an integer greater than 0!",
+    "complete": "Calculation Complete!",
+    "doAgain": "Would you like to perform another calculation? (y/n)",
+    "doAgainInvalid": "Please choose either 'y' or 'n'",
+    "bye": "Thank you for using Mortgage Calculator. See you again soon!"
+  },
+  "options": {
+    "doAgain": ["y", "Y", "n", "N"]
+  }
+}
