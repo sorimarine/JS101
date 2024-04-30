@@ -1,0 +1,9 @@
+{
+  "winningCombos": {
+    "r": { "name": "rock", "beats": { "sc": "crushes", "l": "crushes" } },
+    "p": { "name": "paper", "beats": { "r": "covers", "sp": "disproves" } },
+    "sc": { "name": "scissors", "beats": { "p": "cuts", "l": "decapitates" } },
+    "l": { "name": "lizard", "beats": { "p": "eats", "sp": "poisons" } },
+    "sp": { "name": "spock", "beats": { "r": "vaporizes", "sc": "smashes" } }
+  }
+}
