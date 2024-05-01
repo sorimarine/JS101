@@ -7,6 +7,8 @@ const FIRST_TO = 3; // win three rounds to win the game
 let playerRounds = 0;
 let compRounds = 0;
 
+/** -------------------------- DISPLAY FUNCTIONS --------------------------- */
+
 function prompt(message) {
   function oneLinePrompt(msg) {
     if (msg === "") {
@@ -103,6 +105,10 @@ function refreshRoundsWonDisplay() {
   console.log("==========================================================");
 }
 
+/** ------------------------------------------------------------------------ */
+
+/** ------------------------- USER INPUT FUNCTIONS ------------------------- */
+
 // trim and lowercase user input before returning the value
 function getCleanedInput(promptMessage) {
   prompt(promptMessage);
@@ -146,7 +152,11 @@ function getPlayerMoveAbbr() {
   return moveAbbr;
 }
 
-function getCompMoveAbbr() {
+/** ------------------------------------------------------------------------ */
+
+/** -------------------------- COMPUTE FUNCTIONS --------------------------- */
+
+function determineCompMoveAbbr() {
   let randomIndex = Math.floor(Math.random() * VALID_MOVES.length);
   return VALID_MOVES[randomIndex];
 }
@@ -162,6 +172,10 @@ function computeRoundResult(playerMoveAbbr, compMoveAbbr) {
   return -1;
 }
 
+/** ------------------------------------------------------------------------ */
+
+/** ------------------------------ MAIN LOGIC ------------------------------ */
+
 welcomeSequence();
 
 while (true) {
@@ -171,7 +185,7 @@ while (true) {
   while (playerRounds < FIRST_TO && compRounds < FIRST_TO) {
     refreshRoundsWonDisplay();
     let playerMoveAbbr = getPlayerMoveAbbr();
-    let compMoveAbbr = getCompMoveAbbr();
+    let compMoveAbbr = determineCompMoveAbbr();
 
     let roundResult = computeRoundResult(playerMoveAbbr, compMoveAbbr);
     if (roundResult === 1) {
@@ -196,3 +210,5 @@ while (true) {
 
 console.clear();
 prompt("\nThank you for playing! See you next time!\n");
+
+/** ------------------------------------------------------------------------ */
