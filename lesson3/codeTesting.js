@@ -1,4 +1,4 @@
-let statement1 = "The Flintstones Rock!";
-let statement2 = "Easy come, easy go.";
-
-console.log([...statement1.matchAll("t")].length);
+let numbers = [1, 2, 3, 4];
+console.log(numbers);
+numbers.length = 1;
+console.log(numbers);
