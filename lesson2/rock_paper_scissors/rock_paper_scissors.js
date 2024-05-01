@@ -15,6 +15,7 @@ function prompt(message) {
       console.log(`=> ${msg}`);
     }
   }
+
   if (!message.includes("\n")) {
     oneLinePrompt(message);
     return;
@@ -30,15 +31,18 @@ function errorPrompt(message) {
   console.log(`>>> INPUT ERROR!! ${message} <<<\n`);
 }
 
-function printRules() {
+function displayRules() {
   let rules = "";
-  VALID_MOVES.forEach((winningMoveAbr, index) => {
-    let winningMove = WINNING_COMBOS[winningMoveAbr];
+  VALID_MOVES.forEach((winningMoveAbbr, index) => {
+    let winningMove = WINNING_COMBOS[winningMoveAbbr];
     let losingMovesNames = [];
-    Object.getOwnPropertyNames(winningMove.beats).forEach((losingMoveAbr) => {
-      losingMovesNames.push(WINNING_COMBOS[losingMoveAbr].name);
+
+    Object.getOwnPropertyNames(winningMove.beats).forEach((losingMoveAbbr) => {
+      losingMovesNames.push(WINNING_COMBOS[losingMoveAbbr].name);
     });
+
     rules += `${winningMove.name} beats ${losingMovesNames.join(" and ")}`;
+
     if (index !== VALID_MOVES.length - 1) {
       rules += "\n";
     }
@@ -46,7 +50,7 @@ function printRules() {
   prompt(rules);
 }
 
-function welcome() {
+function welcomeSequence() {
   console.clear();
   let welcomePrompt =
     "Welcome to Rock, Paper, Scissors, Lizard, Spock" +
@@ -57,32 +61,30 @@ function welcome() {
   readline.question();
 
   console.clear();
-  printRules();
+  displayRules();
 
   prompt("\nPress enter to continue to the game");
   readline.question();
 }
 
-function displayRoundWinner(roundResult, playerMoveAbr, compMoveAbr) {
-  console.log;
+function displayRoundWinner(roundResult, playerMoveAbbr, compMoveAbbr) {
   prompt(
-    `Player move: ${WINNING_COMBOS[playerMoveAbr].name}  ` +
-      `|  Computer move: ${WINNING_COMBOS[compMoveAbr].name}`
+    `Player move: ${WINNING_COMBOS[playerMoveAbbr].name}  ` +
+      `|  Computer move: ${WINNING_COMBOS[compMoveAbbr].name}\n`
   );
   if (roundResult === 0) {
     prompt("It's a tie!");
   } else if (roundResult === 1) {
     prompt(
-      `${WINNING_COMBOS[playerMoveAbr].name} ${WINNING_COMBOS[playerMoveAbr].beats[compMoveAbr]} ${WINNING_COMBOS[compMoveAbr].name}`
+      `${WINNING_COMBOS[playerMoveAbbr].name} ${WINNING_COMBOS[playerMoveAbbr].beats[compMoveAbbr]} ${WINNING_COMBOS[compMoveAbbr].name}`
     );
     prompt("Player wins!");
   } else {
     prompt(
-      `${WINNING_COMBOS[compMoveAbr].name} ${WINNING_COMBOS[compMoveAbr].beats[playerMoveAbr]} ${WINNING_COMBOS[playerMoveAbr].name}`
+      `${WINNING_COMBOS[compMoveAbbr].name} ${WINNING_COMBOS[compMoveAbbr].beats[playerMoveAbbr]} ${WINNING_COMBOS[playerMoveAbbr].name}`
     );
     prompt("Computer wins!");
   }
-  console.log();
 }
 
 // there's no tie for final winner
@@ -92,7 +94,7 @@ function displayGameWinner() {
   );
 }
 
-function refreshRoundsWon() {
+function refreshRoundsWonDisplay() {
   console.clear();
   prompt(
     `First to win ${FIRST_TO} round${FIRST_TO > 1 ? "s" : ""} wins the game!`
@@ -102,48 +104,9 @@ function refreshRoundsWon() {
 }
 
 // trim and lowercase user input before returning the value
-function getCleanedInput(promptMessages) {
-  for (let index = 0; index < promptMessages.length; index += 1) {
-    prompt(promptMessages[index]);
-  }
+function getCleanedInput(promptMessage) {
+  prompt(promptMessage);
   return readline.question().trim().toLowerCase();
-}
-
-function getPlayerMoveAbr() {
-  function getMove() {
-    let promptMessages = ["Choose your move: "];
-    VALID_MOVES.forEach((moveAbr) => {
-      promptMessages.push(` (${moveAbr}): ${WINNING_COMBOS[moveAbr].name}`);
-    });
-    return getCleanedInput(promptMessages);
-  }
-
-  let moveAbr = getMove();
-  while (!VALID_MOVES.includes(moveAbr)) {
-    refreshRoundsWon();
-    errorPrompt(
-      `Invalid input! Available choices: (${VALID_MOVES.join(", ")})`
-    );
-    moveAbr = getMove();
-  }
-
-  return moveAbr;
-}
-
-function getCompMoveAbr() {
-  let randomIndex = Math.floor(Math.random() * VALID_MOVES.length);
-  return VALID_MOVES[randomIndex];
-}
-
-// 1: player wins, 0: tie, -1: computer wins
-function computeRoundResult(playerMoveAbr, compMoveAbr) {
-  if (playerMoveAbr === compMoveAbr) {
-    return 0;
-  }
-  if (WINNING_COMBOS[playerMoveAbr].beats[compMoveAbr]) {
-    return 1;
-  }
-  return -1;
 }
 
 function playAgain() {
@@ -155,39 +118,75 @@ function playAgain() {
   }
   let again = getAgain();
   while (!AGAIN_OPTIONS.includes(again)) {
-    refreshRoundsWon();
+    refreshRoundsWonDisplay();
     errorPrompt(`Invalid input! Choose: (${AGAIN_OPTIONS.join(", ")})`);
     again = getAgain();
   }
   return again === DO_AGAIN;
 }
 
-welcome();
+function getPlayerMoveAbbr() {
+  function getMove() {
+    let promptMessages = "Choose your move:\n";
+    VALID_MOVES.forEach((moveAbbr) => {
+      promptMessages += ` (${moveAbbr}): ${WINNING_COMBOS[moveAbbr].name}\n`;
+    });
+    return getCleanedInput(promptMessages);
+  }
+
+  let moveAbbr = getMove();
+  while (!VALID_MOVES.includes(moveAbbr)) {
+    refreshRoundsWonDisplay();
+    errorPrompt(
+      `Invalid input! Available choices: (${VALID_MOVES.join(", ")})`
+    );
+    moveAbbr = getMove();
+  }
+
+  return moveAbbr;
+}
+
+function getCompMoveAbbr() {
+  let randomIndex = Math.floor(Math.random() * VALID_MOVES.length);
+  return VALID_MOVES[randomIndex];
+}
+
+// 1: player wins, 0: tie, -1: computer wins
+function computeRoundResult(playerMoveAbbr, compMoveAbbr) {
+  if (playerMoveAbbr === compMoveAbbr) {
+    return 0;
+  }
+  if (WINNING_COMBOS[playerMoveAbbr].beats[compMoveAbbr]) {
+    return 1;
+  }
+  return -1;
+}
+
+welcomeSequence();
 
 while (true) {
   playerRounds = 0;
   compRounds = 0;
 
   while (playerRounds < FIRST_TO && compRounds < FIRST_TO) {
-    refreshRoundsWon();
-    let playerMoveAbr = getPlayerMoveAbr();
-    let compMoveAbr = getCompMoveAbr();
+    refreshRoundsWonDisplay();
+    let playerMoveAbbr = getPlayerMoveAbbr();
+    let compMoveAbbr = getCompMoveAbbr();
 
-    let roundResult = computeRoundResult(playerMoveAbr, compMoveAbr);
+    let roundResult = computeRoundResult(playerMoveAbbr, compMoveAbbr);
     if (roundResult === 1) {
       playerRounds += 1;
     } else if (roundResult === -1) {
       compRounds += 1;
     }
 
-    refreshRoundsWon();
-    displayRoundWinner(roundResult, playerMoveAbr, compMoveAbr);
-    console.log();
-    prompt("Press enter to continue");
+    refreshRoundsWonDisplay();
+    displayRoundWinner(roundResult, playerMoveAbbr, compMoveAbbr);
+    prompt("\nPress enter to continue");
     readline.question();
   }
 
-  refreshRoundsWon();
+  refreshRoundsWonDisplay();
   displayGameWinner();
 
   if (!playAgain()) {
@@ -195,4 +194,5 @@ while (true) {
   }
 }
 
-prompt("Thank you for playing! See you next time!");
+console.clear();
+prompt("\nThank you for playing! See you next time!\n");
