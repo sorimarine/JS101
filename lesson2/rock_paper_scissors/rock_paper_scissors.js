@@ -1,6 +1,7 @@
 const readline = require("readline-sync");
 const WINNING_COMBOS = require("./rock_paper_scissors.json").winningCombos;
 const VALID_MOVES = Object.getOwnPropertyNames(WINNING_COMBOS);
+const VULCAN_SALUTE = "🖖";
 
 // We need this info inside some function calls
 const FIRST_TO = 3; // win three rounds to win the game
@@ -209,6 +210,6 @@ while (true) {
 }
 
 console.clear();
-prompt("\nThank you for playing! See you next time!\n");
+prompt(`\nThank you for playing! See you next time! ${VULCAN_SALUTE}\n`);
 
 /** ------------------------------------------------------------------------ */
