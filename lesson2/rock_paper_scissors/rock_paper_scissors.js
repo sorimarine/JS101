@@ -71,30 +71,33 @@ function welcomeSequence() {
 }
 
 function displayRoundWinner(roundResult, playerMoveAbbr, compMoveAbbr) {
+  let playerMove = WINNING_COMBOS[playerMoveAbbr];
+  let compMove = WINNING_COMBOS[compMoveAbbr];
   prompt(
-    `Player move: ${WINNING_COMBOS[playerMoveAbbr].name}  ` +
-      `|  Computer move: ${WINNING_COMBOS[compMoveAbbr].name}\n`
+    `Player move: ${playerMove.name}  |  Computer move: ${compMove.name}\n`
   );
   if (roundResult === 0) {
     prompt("It's a tie!");
   } else if (roundResult === 1) {
     prompt(
-      `${WINNING_COMBOS[playerMoveAbbr].name} ${WINNING_COMBOS[playerMoveAbbr].beats[compMoveAbbr]} ${WINNING_COMBOS[compMoveAbbr].name}`
+      `${playerMove.name} ${playerMove.beats[compMoveAbbr]} ${compMove.name}`
     );
-    prompt("Player wins!");
+    prompt("Player wins the round!");
   } else {
     prompt(
-      `${WINNING_COMBOS[compMoveAbbr].name} ${WINNING_COMBOS[compMoveAbbr].beats[playerMoveAbbr]} ${WINNING_COMBOS[playerMoveAbbr].name}`
+      `${compMove.name} ${compMove.beats[playerMoveAbbr]} ${playerMove.name}`
     );
-    prompt("Computer wins!");
+    prompt("Computer wins the round!");
   }
 }
 
 // there's no tie for final winner
 function displayGameWinner() {
+  let winner = playerRounds > compRounds ? "Player" : "Computer";
   prompt(
-    `The final winner is: ${playerRounds > compRounds ? "PLAYER" : "COMPUTER"}!`
+    `${winner} was first to win ${FIRST_TO} round${FIRST_TO > 1 ? "s" : ""}\n`
   );
+  prompt(`${winner} wins the game!!!\n`);
 }
 
 function refreshRoundsWonDisplay() {
